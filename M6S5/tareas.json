@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "Sacar la basura",
+    "estado": "completado"
+  },
+  {
+    "nombre": "Dar comida a los perros",
+    "estado": "completado"
+  },
+  {
+    "nombre": "Comprar una plancha",
+    "estado": "completado"
+  }
+]

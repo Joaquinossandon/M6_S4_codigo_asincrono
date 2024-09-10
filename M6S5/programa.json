@@ -1,0 +1,14 @@
+{
+  "nombre": "Python",
+  "backend": "true",
+  "frontend": "true",
+  "OOP": "true",
+  "HerramientaBackend": "Node JS",
+  "Herramientas": {
+    "lista": [
+      "tres",
+      "cuatro"
+    ],
+    "unvalor": true
+  }
+}

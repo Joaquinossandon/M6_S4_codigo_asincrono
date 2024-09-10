@@ -4,10 +4,6 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "callbacks": "node lectura/callbacks.js",
-        "promesas": "node lectura/promesas.js",
-        "async": "node lectura/async_await.js",
-        "paises": "node paises.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
