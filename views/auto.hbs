@@ -1,0 +1,20 @@
+<html lang="en"></html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{titulo}}</title>
+    </head>
+    <body>
+        {{> header}}
+        {{#if found}}
+            <ul>
+                <li>Marca: {{auto.marca}}</li>
+                <li>Modelo: {{auto.modelo}}</li>
+                <li>Asientos: {{auto.asientos}}</li>
+            </ul>
+        {{else}}
+            <h2>Auto no encontrado</h2>
+        {{/if}}
+        {{> footer }}
+    </body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "ferrari": {
+    "modelo": "F40",
+    "asientos": 2
+  },
+  "porsche": {
+    "modelo": "911",
+    "asientos": 2
+  },
+  "lamborghini": {
+    "modelo": "murcielago",
+    "asientos": 2
+  },
+  "bugatti": {
+    "modelo": "veyron",
+    "asientos": 2
+  },
+  "pagani": {
+    "modelo": "huayra",
+    "asientos": 2
+  },
+  "ford": {
+    "modelo": "fiesta",
+    "asientos": 5
+  },
+  "honda": {
+    "modelo": "integra",
+    "asientos": 2
+  },
+  "nissan": {
+    "modelo": "integra",
+    "asientos": 2
+  }
+}

@@ -1,7 +1,7 @@
 const fs = require("fs/promises");
 
 const leerArchivo = async (archivoLectura) => {
-    const respuesta = await fs.readFile(archivoLectura, "utf-8");
+    const respuesta = await fs.readFile(archivoLectura, "utf-8"); //devuelve un string
     return respuesta;
 };
 
@@ -10,7 +10,7 @@ const escribirArchivo = async (archivo, contenido) => {
     console.log("Ya se escribió el archivo");
 };
 
-const StringJson = (string) => JSON.parse(string);
+const StringJson = (string) => JSON.parse(string); // transforma un string a un Objeto de JS {} || []
 
 const JsonString = (objeto) => JSON.stringify(objeto, null, 2);
 
@@ -45,13 +45,16 @@ const eliminarTarea = (nombreTarea, array) => {
 };
 
 const main = async () => {
+    // --- LEER ARGUMENTOS ---
+    const [comando, nombreTarea] = process.argv.slice(2);
+
     // --- LEER ARCHIVO ---
     // 1./ Leer el archivo
     const contenido = await leerArchivo("tareas.json");
     // 2./ Parsear string a json
     let contenidoJSON = StringJson(contenido); // el texto que viene es un array []
-    const [comando, nombreTarea] = process.argv.slice(2);
 
+    // -- EN BASE AL COMANDO, ELEGIMOS UNA ACCION
     if (comando === "agregar") {
         agregarTarea(nombreTarea, contenidoJSON);
     } else if (comando === "eliminar") {
@@ -62,8 +65,6 @@ const main = async () => {
         verTarea(nombreTarea, contenidoJSON);
         return;
     }
-
-    console.log(contenidoJSON);
 
     // --- ESCRIBIR ARCHIVO ---
     // 1./ transformar de JSON a String (array a string)
