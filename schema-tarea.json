@@ -1,0 +1,6 @@
+{
+    "id": "identificador generado",
+    "name": "nombre de la tarea",
+    "desc": "descripcion de la tarea",
+    "status": "el estado de la tarea completado/incompleto"
+}
