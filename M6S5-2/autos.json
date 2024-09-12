@@ -28,7 +28,15 @@
     "asientos": 2
   },
   "nissan": {
+    "modelo": "tida",
+    "asientos": 4
+  },
+  "lambor": {
     "modelo": "integra",
     "asientos": 2
+  },
+  "gm": {
+    "modelo": "magnific",
+    "asientos": 8
   }
 }

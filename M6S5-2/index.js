@@ -32,25 +32,26 @@ app.get("/ver/:marca", async (req, res) => {
 });
 
 app.get("/eliminar/:marca", async (req, res) => {
+    console.log("ELIMINAR")
     const { marca } = req.params;
     const autos = await fileToJSON("autos.json");
     delete autos[marca];
     await saveFile("autos.json", autos);
     const nuevosAutos = await fileToJSON("autos.json");
-    console.log(nuevosAutos);
     const keysAutos = Object.keys(nuevosAutos);
     res.render("index", {
         autos: keysAutos,
     });
 });
 
-app.get("/:marca/:modelo/:asientos", async (req, res) => {
+app.get("/agregar/:marca/:modelo/:asientos", async (req, res) => {
     const { marca, modelo, asientos } = req.params;
     const autos = await fileToJSON("autos.json");
     autos[marca] = { modelo, asientos: Number(asientos) };
     await saveFile("autos.json", autos);
+    console.log("DESPUES DE GUARDAR")
     const nuevosAutos = await fileToJSON("autos.json");
-    console.log(nuevosAutos, "HOLAAAA");
+    console.log(nuevosAutos, "NUEVOS AUTOS")
     const keysAutos = Object.keys(nuevosAutos);
     res.render("index", {
         autos: keysAutos,

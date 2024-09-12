@@ -16,6 +16,7 @@ const JsonParse = (string) => {
 const fileToJSON = async (fileName) => {
     try {
         const contentString = await leerArchivo(fileName);
+        console.log(contentString)
         const JsonContent = JsonParse(contentString);
         return JsonContent;
     } catch (error) {
