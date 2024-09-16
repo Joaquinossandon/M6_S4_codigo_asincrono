@@ -5,7 +5,7 @@ const listar = require("./commands/listar");
 const editar = require("./commands/editar");
 
 const args = yargs
-    .command(...agregar)
+    .command(...agregar) // .command("create", "Crea una nueva tarea", config, agregarTarea)
     .command(...eliminar)
     .command(...listar)
     .command(...editar)

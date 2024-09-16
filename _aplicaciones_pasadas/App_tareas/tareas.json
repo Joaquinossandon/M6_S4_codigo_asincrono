@@ -1,0 +1,20 @@
+[
+  {
+    "id": "23293c0b-0dc6-4b16-8c55-3cef5a4c8462",
+    "name": "Comer una aceituna",
+    "desc": "una bien sabrosa",
+    "status": "incompleta"
+  },
+  {
+    "id": "cec0bb6f-162a-496b-b663-b5d6bf4a5178",
+    "name": "Darle comida al gato",
+    "desc": "El gato no ha comido en 2 días, dale comida",
+    "status": "completado"
+  },
+  {
+    "id": "82fd08da-8997-4876-8011-41233ab7ffdd",
+    "name": "Nueva tarea",
+    "desc": "Esta es una nueva tarea desde postman",
+    "status": "incompleto"
+  }
+]
