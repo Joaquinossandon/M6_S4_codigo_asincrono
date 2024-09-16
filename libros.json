@@ -1,0 +1,142 @@
+[
+    {
+        "id": 1,
+        "titulo": "El señor de los anillos",
+        "autor": "J.R.R. Tolkien",
+        "precio": 500,
+        "editorial": "Minotauro"
+    },
+    {
+        "id": 2,
+        "titulo": "El hobbit",
+        "autor": "J.R.R. Tolkien",
+        "precio": 500,
+        "editorial": "Minotauro"
+    },
+    {
+        "id": 3,
+        "titulo": "Harry Potter y la piedra filosofal",
+        "autor": "J.K. Rowling",
+        "precio": 400,
+        "editorial": "Salamandra"
+    },
+    {
+        "id": 4,
+        "titulo": "Harry Potter y la cámara secreta",
+        "autor": "J.K. Rowling",
+        "precio": 400,
+        "editorial": "Salamandra"
+    },
+    {
+        "id": 5,
+        "titulo": "Harry Potter y el prisionero de Azkaban",
+        "autor": "J.K. Rowling",
+        "precio": 400,
+        "editorial": "Salamandra"
+    },
+    {
+        "id": 6,
+        "titulo": "Harry Potter y el cáliz de fuego",
+        "autor": "J.K. Rowling",
+        "precio": 400,
+        "editorial": "Salamandra"
+    },
+    {
+        "id": 7,
+        "titulo": "Harry Potter y la orden del fénix",
+        "autor": "J.K. Rowling",
+        "precio": 400,
+        "editorial": "Salamandra"
+    },
+    {
+        "id": 8,
+        "titulo": "Harry Potter y el misterio del príncipe",
+        "autor": "J.K. Rowling",
+        "precio": 400,
+        "editorial": "Salamandra"
+    },
+    {
+        "id": 9,
+        "titulo": "Harry Potter y las reliquias de la muerte",
+        "autor": "J.K. Rowling",
+        "precio": 400,
+        "editorial": "Salamandra"
+    },
+    {
+        "id": 10,
+        "titulo": "El código Da Vinci",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 11,
+        "titulo": "Ángeles y demonios",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 12,
+        "titulo": "El símbolo perdido",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 13,
+        "titulo": "Inferno",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 14,
+        "titulo": "Origen",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 15,
+        "titulo": "El código Da Vinci",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 16,
+        "titulo": "El código Da Vinci",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 17,
+        "titulo": "El código Da Vinci",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 18,
+        "titulo": "El código Da Vinci",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 19,
+        "titulo": "El código Da Vinci",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    },
+    {
+        "id": 20,
+        "titulo": "El código Da Vinci",
+        "autor": "Dan Brown",
+        "precio": 450,
+        "editorial": "Umbriel"
+    }
+]
