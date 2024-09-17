@@ -29,18 +29,42 @@
 // ✅ importa express para poder crear el servidor
 // ✅ Intancia express para poder usar sus métodos
 // ✅ Crea un endpoint para agregar un libro
-// ------✅ Leer el archivo
-// ------✅ Transformar a un JSON
-// ------✅ Agregar el libro al JSON
-// ------✅ Escribir en el archivo
+// ---- ✅🔁 Leer el archivo
+// ---- ✅🔁 Transformar a un JSON
+// ---- ✅ Agregar el libro al JSON
+// ---- ✅🔁 Escribir en el archivo
+// ---- ✅🔁 Envía una respuesta formateada con el contenido del archivo
 // ✅ Crea un endpoint para eliminar un libro
+// ---- ✅🔁 Leer el archivo
+// ---- ✅🔁 Transformar a un JSON
+// ---- ✅ Editar el JSON y eliminar el libro con el id recibido
+// ---- ✅🔁 Escribir en el archivo
+// ---- ✅🔁 Envía una respuesta formateada con el contenido del archivo
 // ✅ Crea un endpoint para editar un libro
+// ---- ✅🔁 Leer el archivo
+// ---- ✅🔁 Transformar a un JSON
+// ---- ✅ Editar el JSON en la posición del libro con el id recibido
+// ---- ✅🔁 Escribir en el archivo
+// ---- ✅🔁 Envía una respuesta formateada con el contenido del archivo
 // ✅ Crea un endpoint para listar los libros
-// ---- ✅ Leer el archivo
-// --------- ✅ Convertir el resultado a JSON
+// ---- ✅🔁 Leer el archivo
+// ---- ✅🔁 Convertir el resultado a JSON
+// ---- ✅🔁 Envía una respuesta formateada con el contenido del archivo
 // ✅ Crea un endpoint para listar los libros por autor
+// ---- ✅🔁 Leer el archivo
+// ---- ✅🔁 Convertir el contenido a JSON
+// ---- ✅ Filtrar los libros según el autor que se entrega en los params
+// ---- ✅🔁 Envía una respuesta formateada con el contenido del archivo
 // ✅ Crea un endpoint para listar un libro por id
-// ✅ Crea un endpoint para listar libros por precio
+// ---- ✅ Leemos los params que vienen en la URL (en este caso en la propiedad 'id')
+// ---- ✅🔁 Leer el archivo
+// ---- Buscar coincidencias con el ID que llegó de params
+// ✅ Crea un endpoint para listar libros por rango de precio
+// ---- ✅🔁 Leer el archivo
+// ---- ✅🔁 Convertir el contenido a JSON
+// ---- ✅ Filtrar los libros según el precio minimo y maximo que se entrega en el body de la solicitud
+// ---- ✅🔁 Envía una respuesta formateada con el contenido filtrado
+
 // ✅ Escucha en el puerto 8000
 
 // ! No olvidar que para usar el body de nuestras peticiones
@@ -80,23 +104,76 @@ app.post("/libros", async (req, res) => {
     res.status(201).json(libro);
 });
 
-app.get("/libros/:id", (req, res) => {
-    const { id } = req.params;
-    res.status(200).send(`Aquí está el libro con el ID ${id}`);
+app.get("/libros/:id", async (req, res) => {
+    const { id } = req.params; // {id: valor}
+    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
+    const libroEncontrado = fileContentJSON.find((libro) => libro.id == id); // devuelve el elemento => {...libro} o undefined (truthly o falsy respectivamente)
+    res.status(libroEncontrado ? 200 : 404).json({
+        msg: libroEncontrado ? "Libro encontrado" : "No se encontró el libro",
+        result: libroEncontrado,
+    });
 });
 
-app.delete("/libros/:id", (req, res) => {
+app.delete("/libros/:id", async (req, res) => {
     const { id } = req.params;
-    res.status(200).send(`libro con el ID ${id}, eliminado`);
+    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
+    const indexEncontrado = fileContentJSON.findIndex(
+        (libro) => libro.id == id
+    ); // devuelve el índice del elemento actual o -1 si no lo encuentra
+    if (indexEncontrado != -1) {
+        const [libroEliminado] = fileContentJSON.splice(indexEncontrado, 1); // retorna => [{...libro}]
+        await fs.writeFile(
+            "libros.json",
+            JSON.stringify(fileContentJSON, null, 2),
+            "utf-8"
+        );
+        res.status(200).json({
+            msg: "Libro eliminado",
+            result: libroEliminado,
+        });
+    } else {
+        res.status(404).json({
+            msg: `Libro con el id ${id}, no existe`,
+        });
+    }
 });
 
-app.put("/libros/:id", (req, res) => {
+app.put("/libros/:id", async (req, res) => {
     const { id } = req.params; // params es un objeto {}, en este caso sólo trae el id => {id: valor}
-    res.status(200).send(`El libro con el ID ${id}, ha sido actualizado.`);
+    const libroEditado = req.body;
+    // leer el archivo
+    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
+    // Editar el JSON en la posición del libro con el id recibido
+    const indexEncontrado = fileContentJSON.findIndex(
+        (libro) => libro.id == id
+    ); // devuelve el índice del elemento actual o -1 si no lo encuentra
+    if (indexEncontrado != -1) {
+        fileContentJSON.splice(indexEncontrado, 1, { id, ...libroEditado });
+        // qué pasa si no le mandamos el libro completo? es decir, si solo enviamos el titulo?
+        // ARREGLAR ESTA SITUACION
+        await fs.writeFile(
+            "libros.json",
+            JSON.stringify(fileContentJSON, null, 2),
+            "utf-8"
+        );
+        const newContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+        const newContentJSON = JSON.parse(newContent); // ESTE JSON ES UN ARRAY
+        res.status(200).json({
+            msg: "Libro editado",
+            result: newContentJSON[indexEncontrado],
+        });
+    } else {
+        res.status(404).json({
+            msg: `Libro con el id ${id}, no existe`,
+        });
+    }
 });
 
 app.get("/libros/autor/:autor", async (req, res) => {
-    const { autor } = req.params;
+    const { autor } = req.params; // {autor: "J.K. Rowling"}
     const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
     const librosAutor = fileContentJSON.filter(
@@ -108,17 +185,24 @@ app.get("/libros/autor/:autor", async (req, res) => {
     });
 });
 
-app.get("/libros/filtro/precio", (req, res) => {
-    const { min, max } = req.body;
-    res.status(200).send(
-        `Estos son los libros con el precio entre ${min} y ${max}`
+app.get("/libros/filtro/precio", async (req, res) => {
+    const { min, max } = req.body; // {min: valor, max: valor}
+    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
+
+    // Que pasa si el minimo es mayor que el máximo?
+    // ALTERNATIVAS DE SOLUCION
+    //1. para solucionar podemos hacer que el minimo no sea mayor que el máximo
+    //2. ó que dados ambos valores el mínimo sea el número menor y el máximo el mayor
+    const librosFiltrados = fileContentJSON.filter(
+        (libro) => libro.precio >= min && libro.precio <= max
     );
+    res.status(200).json({
+        msg: `libros entre ${min} y ${max}`,
+        result: librosFiltrados,
+    });
 });
 
 app.listen(8000, () => {
     console.log("El servidor se ejecuta en http://localhost:8000/");
 });
-
-
-// Terminar la aplicación y modularizarla lo más posible
-// mañana vamos a revisar los resultados
