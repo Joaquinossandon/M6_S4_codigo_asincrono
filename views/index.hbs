@@ -1,0 +1,10 @@
+<h1>{{titulo}}</h1>
+{{#if tieneLibros}}
+    <ul>
+        {{#each libros}}
+            {{> elementolista data=this}}
+        {{/each}}
+    </ul>
+{{else}}
+    <h2>No hay libros</h2>
+{{/if}}

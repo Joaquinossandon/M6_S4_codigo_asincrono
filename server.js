@@ -73,11 +73,52 @@
 const fs = require("fs/promises");
 const express = require("express");
 const { randomUUID } = require("crypto");
+const cors = require("cors");
+const hbs = require("hbs");
+const path = require("path");
 const app = express();
 
-app.use(express.json());
+hbs.registerPartials(__dirname + "/views/partials", (err) => {});
 
-// verbos HTTP => GET POST PUT DELETE
+app.set("view engine", "hbs");
+
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
+app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
+
+app.get("/", async (req, res) => {
+    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContentJSON = JSON.parse(fileContent);
+    res.render("index", {
+        titulo: "Lista de libros",
+        libros: fileContentJSON,
+        tieneLibros: Boolean(fileContentJSON.length),
+        layout: "main",
+    });
+});
+
+app.get("/libro/:id", async (req, res) => {
+    const { id } = req.params;
+    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContentJSON = JSON.parse(fileContent);
+    const libroEncontrado = fileContentJSON.find((libro) => libro.id == id);
+    res.render("libro", {
+        libro: libroEncontrado,
+        titulo: libroEncontrado.titulo,
+        layout: "main",
+    });
+});
+
+app.get("/addLibro", async (req, res) => {
+    res.render("addLibro", { layout: "main" });
+});
+
+// verbos HTTP => GET POST PUT DELETE => CRUD => CREATE READ UPDATE DELETE
 app.get("/libros", async (req, res) => {
     const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent);
@@ -87,21 +128,22 @@ app.get("/libros", async (req, res) => {
     });
 });
 
+// req es request => petición
 app.post("/libros", async (req, res) => {
-    const libro = req.body;
+    const libro = req.body; // viene titulo, autor, precio, editorial (informacion que envía en usuario)
     const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
     // leer el largo del arreglo actual + 1 para el nuevo ID
     // const id = fileContentJSON.length + 1;
-    const id = randomUUID();
-    fileContentJSON.push({ id, ...libro });
+    const id = randomUUID(); // otra forma de generar este id es con la libreria uuid
+    fileContentJSON.push({ id, ...libro }); // => .push({id, titulo, autor, precio, editorial})
 
     await fs.writeFile(
         "libros.json",
         JSON.stringify(fileContentJSON, null, 2),
         "utf-8"
     );
-    res.status(201).json(libro);
+    res.redirect(301, "/");
 });
 
 app.get("/libros/:id", async (req, res) => {
@@ -111,7 +153,7 @@ app.get("/libros/:id", async (req, res) => {
     const libroEncontrado = fileContentJSON.find((libro) => libro.id == id); // devuelve el elemento => {...libro} o undefined (truthly o falsy respectivamente)
     res.status(libroEncontrado ? 200 : 404).json({
         msg: libroEncontrado ? "Libro encontrado" : "No se encontró el libro",
-        result: libroEncontrado,
+        result: libroEncontrado, // en el caso de que sea undefined, no lo vamos a ver en la respuesta del cliente
     });
 });
 
@@ -129,10 +171,7 @@ app.delete("/libros/:id", async (req, res) => {
             JSON.stringify(fileContentJSON, null, 2),
             "utf-8"
         );
-        res.status(200).json({
-            msg: "Libro eliminado",
-            result: libroEliminado,
-        });
+        res.redirect(302, "/")
     } else {
         res.status(404).json({
             msg: `Libro con el id ${id}, no existe`,
@@ -143,6 +182,7 @@ app.delete("/libros/:id", async (req, res) => {
 app.put("/libros/:id", async (req, res) => {
     const { id } = req.params; // params es un objeto {}, en este caso sólo trae el id => {id: valor}
     const libroEditado = req.body;
+    console.log(libroEditado, "LIBRO EDITADO desde body");
     // leer el archivo
     const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY

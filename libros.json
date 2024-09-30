@@ -7,67 +7,11 @@
     "editorial": "Minotauro"
   },
   {
-    "id": 3,
-    "titulo": "Harry Potter y la piedra filosofal",
-    "autor": "J.K. Rowling",
-    "precio": 400,
-    "editorial": "Salamandra"
-  },
-  {
-    "id": 4,
-    "titulo": "Harry Potter y la cámara secreta",
-    "autor": "J.K. Rowling",
-    "precio": 700,
-    "editorial": "Salamandra"
-  },
-  {
-    "id": 5,
-    "titulo": "Harry Potter y el prisionero de Azkaban",
-    "autor": "J.K. Rowling",
-    "precio": 300,
-    "editorial": "Salamandra"
-  },
-  {
     "id": 6,
     "titulo": "Harry Potter y el cáliz de fuego",
     "autor": "J.K. Rowling",
     "precio": 450,
     "editorial": "Salamandra"
-  },
-  {
-    "id": 7,
-    "titulo": "Harry Potter y la orden del fénix",
-    "autor": "J.K. Rowling",
-    "precio": 510,
-    "editorial": "Salamandra"
-  },
-  {
-    "id": 8,
-    "titulo": "Harry Potter y el misterio del príncipe",
-    "autor": "J.K. Rowling",
-    "precio": 190,
-    "editorial": "Salamandra"
-  },
-  {
-    "id": 9,
-    "titulo": "Harry Potter y las reliquias de la muerte",
-    "autor": "J.K. Rowling",
-    "precio": 4000,
-    "editorial": "Salamandra"
-  },
-  {
-    "id": 10,
-    "titulo": "El código Da Vinci",
-    "autor": "Dan Brown",
-    "precio": 4500,
-    "editorial": "Umbriel"
-  },
-  {
-    "id": 11,
-    "titulo": "Ángeles y demonios",
-    "autor": "Dan Brown",
-    "precio": 350,
-    "editorial": "Umbriel"
   },
   {
     "id": 12,
@@ -112,11 +56,9 @@
     "editorial": "Umbriel"
   },
   {
-    "id": 19,
-    "titulo": "El código Da Vinci",
-    "autor": "Dan Brown",
-    "precio": 450,
-    "editorial": "Umbriel"
+    "id": "19",
+    "titulo": "La caza",
+    "precio": "300"
   },
   {
     "id": "jejeje",
@@ -124,5 +66,26 @@
     "autor": "J.R.R. Tolkien",
     "precio": 500,
     "editorial": "Minotauro"
+  },
+  {
+    "id": "b23d9a2f-116f-4d83-b103-f7234622f0cb",
+    "titulo": "libro de tierra",
+    "autor": "mi zapato",
+    "editorial": "conejo",
+    "precio": "6000"
+  },
+  {
+    "id": "dbdd2b57-a1e6-44b5-aa35-5bed60705916",
+    "titulo": "libro de agua",
+    "autor": "mi zapato",
+    "editorial": "conejo feliz",
+    "precio": "5500"
+  },
+  {
+    "id": "e7936baf-fd99-4e21-81a1-7b92fbf44598",
+    "titulo": "Nuevo libro",
+    "autor": "Jorge Paillan",
+    "editorial": "Chanchito",
+    "precio": "5500"
   }
 ]

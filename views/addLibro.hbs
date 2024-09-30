@@ -1,0 +1,8 @@
+<h1>añadir un libro</h1>
+<form action="/libros" method="POST">
+    {{> input name='titulo' type='text'}}
+    {{> input name='autor' type='text'}}
+    {{> input name='editorial' type='text'}}
+    {{> input name='precio' type='text'}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

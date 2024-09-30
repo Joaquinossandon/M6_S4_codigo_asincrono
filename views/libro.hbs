@@ -1,0 +1,23 @@
+<h1>{{libro.titulo}}</h1>
+<span>{{libro.autor}}</span>
+<p>{{libro.editorial}}</p>
+<p>
+    {{libro.precio}}
+</p>
+
+<button onclick="deleteBook({{libro.id}})" class="btn btn-danger">Eliminar</button>
+
+<script>
+    const deleteBook = async (id) => {
+        const confirmado = confirm("En serio quieres eliminar el libro?")
+        if(confirmado) {
+            const res = await fetch(`/libros/${id}`, {
+                method: 'delete',
+                redirect: "follow"
+            })
+        } else {
+            alert("No se eliminará el libro")
+        }
+
+    }
+</script>
