@@ -7,48 +7,6 @@
     "editorial": "Minotauro"
   },
   {
-    "id": 6,
-    "titulo": "Harry Potter y el cáliz de fuego",
-    "autor": "J.K. Rowling",
-    "precio": 450,
-    "editorial": "Salamandra"
-  },
-  {
-    "id": 12,
-    "titulo": "El símbolo perdido",
-    "autor": "Dan Brown",
-    "precio": 650,
-    "editorial": "Umbriel"
-  },
-  {
-    "id": 14,
-    "titulo": "Origen",
-    "autor": "Dan Brown",
-    "precio": 500,
-    "editorial": "Umbriel"
-  },
-  {
-    "id": 15,
-    "titulo": "El código Da Vinci",
-    "autor": "Dan Brown",
-    "precio": 400,
-    "editorial": "Umbriel"
-  },
-  {
-    "id": 16,
-    "titulo": "El código Da Vinci",
-    "autor": "Dan Brown",
-    "precio": 450,
-    "editorial": "Umbriel"
-  },
-  {
-    "id": 17,
-    "titulo": "El código Da Vinci",
-    "autor": "Dan Brown",
-    "precio": 400,
-    "editorial": "Umbriel"
-  },
-  {
     "id": 18,
     "titulo": "El código Da Vinci",
     "autor": "Dan Brown",
@@ -68,24 +26,17 @@
     "editorial": "Minotauro"
   },
   {
-    "id": "b23d9a2f-116f-4d83-b103-f7234622f0cb",
-    "titulo": "libro de tierra",
-    "autor": "mi zapato",
-    "editorial": "conejo",
-    "precio": "6000"
+    "id": "ba6395ca-e0f7-49f3-b66b-803fd06a1d1f",
+    "titulo": "Harry potter y la piedra filosofal",
+    "autor": "J.K. Hola",
+    "precio": 5000,
+    "editorial": "Los monitos"
   },
   {
-    "id": "dbdd2b57-a1e6-44b5-aa35-5bed60705916",
-    "titulo": "libro de agua",
-    "autor": "mi zapato",
-    "editorial": "conejo feliz",
-    "precio": "5500"
-  },
-  {
-    "id": "e7936baf-fd99-4e21-81a1-7b92fbf44598",
-    "titulo": "Nuevo libro",
-    "autor": "Jorge Paillan",
-    "editorial": "Chanchito",
-    "precio": "5500"
+    "id": "fb04ad53-47f6-4ca3-a757-3fe2d401d5b4",
+    "titulo": "Harry potter y la piedra filosofal",
+    "autor": "J.K. Hola",
+    "precio": 5000,
+    "editorial": "Los monitos"
   }
 ]

@@ -5,16 +5,19 @@
     {{libro.precio}}
 </p>
 
-<button onclick="deleteBook({{libro.id}})" class="btn btn-danger">Eliminar</button>
+<button onclick="deleteBook('{{libro.id}}')" class="btn btn-danger">Eliminar</button>
 
 <script>
     const deleteBook = async (id) => {
+        console.log(id)
         const confirmado = confirm("En serio quieres eliminar el libro?")
         if(confirmado) {
             const res = await fetch(`/libros/${id}`, {
-                method: 'delete',
-                redirect: "follow"
+                method: 'delete'
             })
+            if(res.ok) {
+                window.location.href = '/'
+            }
         } else {
             alert("No se eliminará el libro")
         }

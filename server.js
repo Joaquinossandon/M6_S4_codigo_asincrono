@@ -171,7 +171,10 @@ app.delete("/libros/:id", async (req, res) => {
             JSON.stringify(fileContentJSON, null, 2),
             "utf-8"
         );
-        res.redirect(302, "/")
+        res.status(200).json({
+            msg: "Libro eliminado",
+            result: libroEliminado,
+        });
     } else {
         res.status(404).json({
             msg: `Libro con el id ${id}, no existe`,
@@ -246,3 +249,5 @@ app.get("/libros/filtro/precio", async (req, res) => {
 app.listen(8000, () => {
     console.log("El servidor se ejecuta en http://localhost:8000/");
 });
+
+module.exports = { app };
