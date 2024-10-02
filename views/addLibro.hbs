@@ -1,8 +1,36 @@
 <h1>añadir un libro</h1>
-<form action="/libros" method="POST">
+<form id="agregar-libro">
     {{> input name='titulo' type='text'}}
     {{> input name='autor' type='text'}}
     {{> input name='editorial' type='text'}}
     {{> input name='precio' type='text'}}
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Agregar</button>
 </form>
+
+<script>
+    const formCrear = document.getElementById("agregar-libro")
+
+    formCrear.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        const form = e.target
+        const data = new FormData(form);
+        const dataObj = Object.fromEntries(data)
+        
+        const res = await fetch("/libros", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(dataObj)
+        })
+
+        if(res.ok) {
+            const resJson = await res.json()
+            form.reset()
+            alert("Se agregó el libro")
+            return window.location.href = "/"
+        }
+
+        alert("Hubo un error")
+    })
+</script>

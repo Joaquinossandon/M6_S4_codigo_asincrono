@@ -76,7 +76,11 @@ const { randomUUID } = require("crypto");
 const cors = require("cors");
 const hbs = require("hbs");
 const path = require("path");
+require("dotenv").config();
+const { query } = require("./db");
 const app = express();
+
+const file = process.env.FILE || "libros.json";
 
 hbs.registerPartials(__dirname + "/views/partials", (err) => {});
 
@@ -91,8 +95,18 @@ app.use(
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
+app.get("/databse", async (req, res) => {
+    console.log(process.env.OS);
+    const result = await query("SELECT * FROM reparto");
+    console.log(result)
+    res.status(200).json({
+        peliculas: result.rows,
+        count: result.rowCount,
+    });
+});
+
 app.get("/", async (req, res) => {
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent);
     res.render("index", {
         titulo: "Lista de libros",
@@ -104,7 +118,7 @@ app.get("/", async (req, res) => {
 
 app.get("/libro/:id", async (req, res) => {
     const { id } = req.params;
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent);
     const libroEncontrado = fileContentJSON.find((libro) => libro.id == id);
     res.render("libro", {
@@ -120,7 +134,7 @@ app.get("/addLibro", async (req, res) => {
 
 // verbos HTTP => GET POST PUT DELETE => CRUD => CREATE READ UPDATE DELETE
 app.get("/libros", async (req, res) => {
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent);
     res.status(200).json({
         msg: fileContentJSON.length ? "Lista de libros" : "No hay libros",
@@ -131,24 +145,23 @@ app.get("/libros", async (req, res) => {
 // req es request => petición
 app.post("/libros", async (req, res) => {
     const libro = req.body; // viene titulo, autor, precio, editorial (informacion que envía en usuario)
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
     // leer el largo del arreglo actual + 1 para el nuevo ID
     // const id = fileContentJSON.length + 1;
     const id = randomUUID(); // otra forma de generar este id es con la libreria uuid
     fileContentJSON.push({ id, ...libro }); // => .push({id, titulo, autor, precio, editorial})
 
-    await fs.writeFile(
-        "libros.json",
-        JSON.stringify(fileContentJSON, null, 2),
-        "utf-8"
-    );
-    res.redirect(301, "/");
+    await fs.writeFile(file, JSON.stringify(fileContentJSON, null, 2), "utf-8");
+    res.status(201).json({
+        msg: "Libro creado",
+        id,
+    });
 });
 
 app.get("/libros/:id", async (req, res) => {
     const { id } = req.params; // {id: valor}
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
     const libroEncontrado = fileContentJSON.find((libro) => libro.id == id); // devuelve el elemento => {...libro} o undefined (truthly o falsy respectivamente)
     res.status(libroEncontrado ? 200 : 404).json({
@@ -159,7 +172,7 @@ app.get("/libros/:id", async (req, res) => {
 
 app.delete("/libros/:id", async (req, res) => {
     const { id } = req.params;
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
     const indexEncontrado = fileContentJSON.findIndex(
         (libro) => libro.id == id
@@ -167,7 +180,7 @@ app.delete("/libros/:id", async (req, res) => {
     if (indexEncontrado != -1) {
         const [libroEliminado] = fileContentJSON.splice(indexEncontrado, 1); // retorna => [{...libro}]
         await fs.writeFile(
-            "libros.json",
+            file,
             JSON.stringify(fileContentJSON, null, 2),
             "utf-8"
         );
@@ -187,7 +200,7 @@ app.put("/libros/:id", async (req, res) => {
     const libroEditado = req.body;
     console.log(libroEditado, "LIBRO EDITADO desde body");
     // leer el archivo
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
     // Editar el JSON en la posición del libro con el id recibido
     const indexEncontrado = fileContentJSON.findIndex(
@@ -198,11 +211,11 @@ app.put("/libros/:id", async (req, res) => {
         // qué pasa si no le mandamos el libro completo? es decir, si solo enviamos el titulo?
         // ARREGLAR ESTA SITUACION
         await fs.writeFile(
-            "libros.json",
+            file,
             JSON.stringify(fileContentJSON, null, 2),
             "utf-8"
         );
-        const newContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+        const newContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
         const newContentJSON = JSON.parse(newContent); // ESTE JSON ES UN ARRAY
         res.status(200).json({
             msg: "Libro editado",
@@ -217,7 +230,7 @@ app.put("/libros/:id", async (req, res) => {
 
 app.get("/libros/autor/:autor", async (req, res) => {
     const { autor } = req.params; // {autor: "J.K. Rowling"}
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
     const librosAutor = fileContentJSON.filter(
         (libro) => libro.autor === autor
@@ -230,7 +243,7 @@ app.get("/libros/autor/:autor", async (req, res) => {
 
 app.get("/libros/filtro/precio", async (req, res) => {
     const { min, max } = req.body; // {min: valor, max: valor}
-    const fileContent = await fs.readFile("libros.json", "utf-8"); // ESTO VIENE COMO STRING
+    const fileContent = await fs.readFile(file, "utf-8"); // ESTO VIENE COMO STRING
     const fileContentJSON = JSON.parse(fileContent); // ESTE JSON ES UN ARRAY
 
     // Que pasa si el minimo es mayor que el máximo?
@@ -251,3 +264,8 @@ app.listen(8000, () => {
 });
 
 module.exports = { app };
+
+// Podemos tener diferentes entornos, los más comunes son
+// entorno de desarrollo
+// entorno de testing
+// entorno de producción

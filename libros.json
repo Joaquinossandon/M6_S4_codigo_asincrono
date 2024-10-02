@@ -26,17 +26,24 @@
     "editorial": "Minotauro"
   },
   {
-    "id": "ba6395ca-e0f7-49f3-b66b-803fd06a1d1f",
-    "titulo": "Harry potter y la piedra filosofal",
-    "autor": "J.K. Hola",
-    "precio": 5000,
-    "editorial": "Los monitos"
+    "id": "3f963435-8961-4777-84e1-250aabfe7d9b",
+    "titulo": "Nuevo libro",
+    "autor": "mi zapato",
+    "editorial": "Chanchito",
+    "precio": "6000"
   },
   {
-    "id": "fb04ad53-47f6-4ca3-a757-3fe2d401d5b4",
-    "titulo": "Harry potter y la piedra filosofal",
-    "autor": "J.K. Hola",
-    "precio": 5000,
-    "editorial": "Los monitos"
+    "id": "9ad5c8d4-238f-40e7-892f-62e4732b5d6e",
+    "titulo": "ajkdnasjk",
+    "autor": "mi zapato",
+    "editorial": "Chanchito",
+    "precio": "6000"
+  },
+  {
+    "id": "e48ce932-951d-46fc-a86d-ddc4f6a5e1b7",
+    "titulo": "Papelucho",
+    "autor": "mi zapato",
+    "editorial": "tulio triviño",
+    "precio": "5000"
   }
 ]
